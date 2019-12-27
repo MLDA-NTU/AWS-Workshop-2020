@@ -124,6 +124,9 @@ virtualenv
 .venv
 .virtualenv
 
+# data
+data
+
 # Pyre type checker
 .pyre/
 
