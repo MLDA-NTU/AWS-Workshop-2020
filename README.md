@@ -82,7 +82,7 @@ the most relevant Python packages for science, math, engineering, and
 data analysis; Anaconda can be downloaded and installed for free
 including commercial use and redistribution.
 The code examples in this tutorial should be compatible to Python 2.7,
-Python 3.4-3.6.
+Python 3.5-3.7.
 
 After obtaining the material, we **strongly recommend** you to open and execute
 the Jupyter Notebook `jupter notebook check_env.ipynb` that is located at the
@@ -140,4 +140,13 @@ Week 01 Session
 
 Week 02 Session
 -----------------
-- 01
+- 01 (TBD)
+
+
+Contributing
+=======
+
+When contributing to this repository, please first discuss the change you wish to make via issue,
+email, or any other method with the owners of this repository before making a change. 
+
+Please note we have a code of conduct, please follow it in all your interactions with the project as written [here](docs/CONTRIBUTING.md)
