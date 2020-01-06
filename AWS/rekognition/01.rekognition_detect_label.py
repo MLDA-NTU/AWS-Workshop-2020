@@ -8,20 +8,20 @@ def main(args):
     rekognition = boto3.client('rekognition')
 
     # Configure argument for rekognition.Image
-    if args.s3bucket and args.filepath:
+    if args.s3bucket and args.file_path:
         # case: specify API input using image in AWS S3
         img_kwarg = {
             'S3Object': {
                 'Bucket': args.s3bucket, # path to your s3 folder
-                'Name': args.filepath,   # name of the file in s3 folder, e.g. (mypic.jpg)
+                'Name': args.file_path,   # name of the file in s3 folder, e.g. (mypic.jpg)
             }
         }
 
-    elif args.filepath:
+    elif args.file_path:
         # case: uploading image from local machine to rekognition API
-        if os.path.isfile(args.filepath):
+        if os.path.isfile(args.file_path):
             # using image file
-            with open(args.filepath, 'rb') as f:
+            with open(args.file_path, 'rb') as f:
                 photo_bytes = f.read()
 
             # configure argument for rekognition.Image    
@@ -29,7 +29,7 @@ def main(args):
         
         else:
             # error when your local image path is wrong
-            raise FileExistsError('File not found in local: %s' % args.filepath)
+            raise FileExistsError('File not found in local: %s' % args.file_path)
     
     # Call Rekognition: detect_labels API
     response = rekognition.detect_labels(
@@ -48,8 +48,10 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Script to try rekognition:detect_label()')
-    parser.add_argument('--file-path', type=str, help='File path to Amazon S3 or your local file path')
-    parser.add_argument('--s3bucket', type=str, help=help='If specified, the API will search `file-path` as a file path in Amazon S3 directory instead')
+    parser.add_argument('--file-path', type=str,
+        help='File path to Amazon S3 or your local file path')
+    parser.add_argument('--s3bucket', type=str,
+        help='If specified, the API will search `file-path` as a file path in Amazon S3 directory instead')
 
     args = parser.parse_args()
 
