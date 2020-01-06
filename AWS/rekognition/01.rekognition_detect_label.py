@@ -4,18 +4,21 @@ import boto3
 
 
 def main(args):
+    # Define client object to connect to rekognition API
     rekognition = boto3.client('rekognition')
 
+    # Configure argument for rekognition.Image
     if args.s3bucket and args.filepath:
-        # configure argument for rekognition.Image
+        # case: specify API input using image in AWS S3
         img_kwarg = {
             'S3Object': {
-                'Bucket': args.s3bucket,
-                'Name': args.filepath,
+                'Bucket': args.s3bucket, # path to your s3 folder
+                'Name': args.filepath,   # name of the file in s3 folder, e.g. (mypic.jpg)
             }
         }
 
     elif args.filepath:
+        # case: uploading image from local machine to rekognition API
         if os.path.isfile(args.filepath):
             # using image file
             with open(args.filepath, 'rb') as f:
@@ -25,14 +28,17 @@ def main(args):
             img_kwarg = {'Bytes': photo_bytes}
         
         else:
+            # error when your local image path is wrong
             raise FileExistsError('File not found in local: %s' % args.filepath)
     
+    # Call Rekognition: detect_labels API
     response = rekognition.detect_labels(
         Image=img_kwarg,
         MaxLabels=10,
         MinConfidence=80
     )
 
+    # Printing HTTP Response and its data from API call
     pp = pprint.PrettyPrinter(indent=2)
     pp.pprint(response)
 
@@ -42,8 +48,8 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Script to try rekognition:detect_label()')
-    parser.add_argument('--filepath', type=str)
-    parser.add_argument('--s3bucket', type=str)
+    parser.add_argument('--file-path', type=str, help='File path to Amazon S3 or your local file path')
+    parser.add_argument('--s3bucket', type=str, help=help='If specified, the API will search `file-path` as a file path in Amazon S3 directory instead')
 
     args = parser.parse_args()
 
