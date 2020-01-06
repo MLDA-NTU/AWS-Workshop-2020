@@ -1,3 +1,4 @@
+import os, sys
 import logging
 
 import torch
@@ -43,7 +44,7 @@ def test_helper(test_loader, model, criterion, epoch,
     test_top1 /= len(test_loader)
     test_top5 /= len(test_loader)
 
-    logger.info('Val/Test Summary Epoch: {:03d} | '
+    logger.info('Test Summary Epoch: {:03d} | '
           'Average Top1 Acc: {:.2f}  | Average Top5 Acc: {:.2f} | Loss: {:.4f}'
           .format(epoch, test_top1, test_top5, test_loss))
 
@@ -94,7 +95,7 @@ def train_helper(train_loader, model, optimizer, criterion, epoch,
         # logging loss output to stdout
         if batch_idx % log_interval == 0:
             logger.info('Train Epoch: {:03d} [{:05d}/{:05d} ({:2.0f}%)] | '
-                  'Top1 g Acc: {:4.1f} \t| Top5 Acc: {:4.1f} \t| Loss: {:.4f}'
+                  'Top1 Acc: {:4.1f} \t| Top5 Acc: {:4.1f} \t| Loss: {:.4f}'
                   .format(epoch, batch_idx * len(data), len(train_loader.sampler),
                       100 * batch_idx / len(train_loader),
                       top1, top5, loss.item()))
