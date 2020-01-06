@@ -116,7 +116,7 @@ class CVAE(nn.Module):
 			.. num_classes (int) - number of classes/target groups in dataset
 		"""
 		super().__init__()
-		
+
 		encoder_hidden_layer = [512, 128, 128]
 		decoder_hidden_layer = [128, 128, 512]
 
@@ -134,7 +134,7 @@ class CVAE(nn.Module):
 		std = torch.exp(z_logvar / 2)
 		eps = torch.randn_like(std)
 		sampled_z = eps * std + z_mu
-		
+
 		z = torch.cat((sampled_z, y), dim=1)
 
 		# Recontruct image x
