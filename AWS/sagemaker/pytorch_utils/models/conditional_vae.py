@@ -3,6 +3,54 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
+class CVAE(nn.Module):
+	""" Conditional VAE (Variational Autoencoder)
+	"""
+
+	def __init__(self, input_dim, latent_dim, num_classes):
+		""" Initialise Decoder component of CVAE
+		Arguments:
+		------------------------
+			.. input_dim (int) - input channel of data X, the length of flattened image vector
+			.. latent_dim (int) - length of latent dim vector in bottle neck layer
+			.. hidden_layers (List[int]) - denotes length dimension of hidden layers' weight. 
+			.. num_classes (int) - number of classes/target groups in dataset
+		"""
+		super().__init__()
+
+		encoder_hidden_layer = [512, 128, 128]
+		decoder_hidden_layer = [128, 128, 512]
+
+		self.input_dim = input_dim
+		self.latent_dim = latent_dim
+		self.num_classes = num_classes
+
+		# Define encoder and decoder module
+		self.encoder = CEncoder(input_dim, latent_dim, encoder_hidden_layer, num_classes)
+		self.decoder = CDecoder(input_dim, latent_dim, decoder_hidden_layer, num_classes)
+
+	def forward(self, x, y):
+		x = x.view(-1, self.input_dim)
+
+		# Concatenate image x and label y
+		x = torch.cat((x, y), dim=1)
+
+		# Learn latent Z distribution parameter
+		z_mu, z_logvar = self.encoder(x)
+
+		# Resampling using reparameterisation trick
+		std = torch.exp(z_logvar / 2)
+		eps = torch.randn_like(std)
+		sampled_z = eps * std + z_mu
+
+		z = torch.cat((sampled_z, y), dim=1)
+
+		# Recontruct image x
+		generated_x = self.decoder(z)
+
+		return generated_x, z_mu, z_logvar
+
+
 class CEncoder(nn.Module):
 	""" Encoder module of simple Conditional VAE network
 	"""
@@ -100,51 +148,3 @@ class CDecoder(nn.Module):
 		generated_x = F.sigmoid(self.recontruction_layer(x))
 
 		return generated_x
-
-
-class CVAE(nn.Module):
-	""" Conditional VAE (Variational Autoencoder)
-	"""
-
-	def __init__(self, input_dim, latent_dim, num_classes):
-		""" Initialise Decoder component of CVAE
-		Arguments:
-		------------------------
-			.. input_dim (int) - input channel of data X, the length of flattened image vector
-			.. latent_dim (int) - length of latent dim vector in bottle neck layer
-			.. hidden_layers (List[int]) - denotes length dimension of hidden layers' weight. 
-			.. num_classes (int) - number of classes/target groups in dataset
-		"""
-		super().__init__()
-
-		encoder_hidden_layer = [512, 128, 128]
-		decoder_hidden_layer = [128, 128, 512]
-
-		self.input_dim = input_dim
-		self.latent_dim = latent_dim
-		self.num_classes = num_classes
-
-		# Define encoder and decoder module
-		self.encoder = CEncoder(input_dim, latent_dim, encoder_hidden_layer, num_classes)
-		self.decoder = CDecoder(input_dim, latent_dim, decoder_hidden_layer, num_classes)
-
-	def forward(self, x, y):
-		x = x.view(-1, self.input_dim)
-
-		# Concatenate image x and label y
-		x = torch.cat((x, y), dim=1)
-
-		# Learn latent Z distribution parameter
-		z_mu, z_logvar = self.encoder(x)
-
-		# Resampling using reparameterisation trick
-		std = torch.exp(z_logvar / 2)
-		eps = torch.randn_like(std)
-		sampled_z = eps * std + z_mu
-
-		z = torch.cat((sampled_z, y), dim=1)
-
-		# Recontruct image x
-		generated_x = self.decoder(z)
-
-		return generated_x, z_mu, z_logvar
