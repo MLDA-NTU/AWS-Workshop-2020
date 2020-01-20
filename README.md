@@ -28,7 +28,7 @@ If you have a GitHub account, it is probably most convenient if you clone or
 fork the GitHub repository. You can clone the repository by running:
 
 ```bash
-git clone https://github.com/MLDA-NTU/AWS-Workshop-2020.git
+git clone --recursive https://github.com/MLDA-NTU/AWS-Workshop-2020.git
 
 ```
 
