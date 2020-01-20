@@ -77,7 +77,7 @@ def train_helper(train_loader, model, optimizer, criterion, epoch,
         loss = criterion(out, target)
         loss.backward()
 
-        if distributed and not torch.cuda.is_available:
+        if distributed and not torch.cuda.is_available():
             # average gradients manually when using multi-machine with cpu device
             distributed_average_gradients(model)
 
