@@ -211,8 +211,6 @@ if __name__ == '__main__':
                         help='Number of classes in dataset (default: 10)')
     parser.add_argument('--input-dim', type=int, default=784, metavar='N',
                         help='Input dimension of flattened image (default: 784)')
-    parser.add_argument('--latent-dim', type=int, default=75, metavar='N',
-                        help='Latent z dimension in the bottleneck layer (default: 75)')
     parser.add_argument('--seed', type=int, default=1, metavar='S',
                         help='random seed (default: 1)')
     parser.add_argument('--log-interval', type=int, default=100, metavar='N',
@@ -220,11 +218,11 @@ if __name__ == '__main__':
 
     # Container environment
     parser.add_argument('--hosts', type=list, default=json.loads(os.environ['SM_HOSTS']))
-    parser.add_argument('--current-host', type=str, default=os.environ['SM_HOSTS'])
+    parser.add_argument('--current-host', type=str, default=os.environ['SM_CURRENT_HOST'])
     parser.add_argument('--model-dir', type=str, default=os.environ['SM_MODEL_DIR'])
     parser.add_argument('--data-dir', type=str, default=os.environ['SM_CHANNEL_TRAINING'])
     parser.add_argument('--plot-dir', type=str, default=None)
-    parser.add_argument('--num-gpus', type=int, default=os.environ['SM_MODEL_DIR'])
+    parser.add_argument('--num-gpus', type=int, default=os.environ['SM_NUM_GPUS'])
     parser.add_argument('--backend', type=str, default=None,
                         help='backend for distributed training (tcp, gloo on cpu and gloo, nccl on gpu)')
 
