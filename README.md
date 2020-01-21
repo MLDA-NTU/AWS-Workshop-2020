@@ -51,9 +51,19 @@ repository via GitHub, you can sync your existing local repository with:
 If you don’t have a GitHub account, you may have to re-download the .zip
 archive from GitHub.
 
-
-Installation Notes
+Running in Google Colab
 ------------------
+The recommended way to follow our workshop and run our notebooks is using [Google Colab here](https://colab.research.google.com/). Follow the instruction as follows:
+
+#### Step 1:
+Open the menu `File` on the top left bar in Google Colab notebooks and choose menu `Open Notebook ...`.
+
+#### Step 2:
+An orange menu box will pop out for you to choose a notebook to open from. Here, we can open the workshop notebook straight from our Github repository. 
+
+Installation Notes on Local Machine
+------------------
+If you decided to run the workshop notebooks on your local machine, you need to first install [Python3.5+](https://www.python.org/downloads/) from the official site [here](https://www.python.org/downloads/).
 
 This tutorial will require recent installations of
 
