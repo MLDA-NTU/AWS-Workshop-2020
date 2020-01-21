@@ -52,8 +52,33 @@ If you don’t have a GitHub account, you may have to re-download the .zip
 archive from GitHub.
 
 
-Installation Notes
+Running in Google Colab
 ------------------
+The recommended way to follow our workshop and run our notebooks is using [Google Colab here](https://colab.research.google.com/). Follow the instruction as follows:
+
+#### Step 1:
+Open the menu `File` on the top left bar in Google Colab notebooks and choose menu `Open Notebook ...`.
+![](docs/assets/gcolab1.png)
+
+#### Step 2:
+An orange menu box will pop out for you to choose a notebook to open from. Click the menu `Github` in the orange menu bar. Here, we can open the workshop notebook straight from our Github repository. Enter the github link: https://github.com/MLDA-NTU/AWS-Workshop-2020 in the search bar to see all notebooks for this workshop that we have hosted in github.
+
+![](docs/assets/gcolab2.png)
+
+
+#### Step 3:
+The workshop notebook will be loaded to your google colab environment. Click `Runtime` setting from the menu bar and change runtime configuration to the following:
+
+![](docs/assets/gcolab3.png)
+![](docs/assets/gcolab4.png)
+
+#### Step 4:
+Finally, hit the connect button on the top right corner in your google colab notebook and enjoy the workshop.
+
+
+Installation Notes on Local Machine
+------------------
+If you decided to run the workshop notebooks on your local machine, you need to first install [Python3.5+](https://www.python.org/downloads/) from the official site [here](https://www.python.org/downloads/).
 
 This tutorial will require recent installations of
 
