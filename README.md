@@ -76,7 +76,7 @@ The workshop notebook will be loaded to your google colab environment. Click `Ru
 Finally, hit the connect button on the top right corner in your google colab notebook and enjoy the workshop.
 
 
-Installation Notes on Local Machine
+Installation Notes in Local Machine
 ------------------
 If you decided to run the workshop notebooks on your local machine, you need to first install [Python3.5+](https://www.python.org/downloads/) from the official site [here](https://www.python.org/downloads/).
 
